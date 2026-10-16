@@ -1,0 +1,99 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to a TCI server",
+        "description": "Enter the address of the computer running Zeus SDR, ExpertSDR or other TCI-capable software. TCI must be enabled in that software.",
+        "data": {
+          "host": "Host",
+          "port": "Port"
+        },
+        "data_description": {
+          "port": "TCI WebSocket port (default 40001)."
+        }
+      },
+      "elements": {
+        "title": "Choose what to expose",
+        "description": "Found **{device}** (protocol {protocol}) with {trx_count} receiver(s). Modes: {modes}.\n\nPick the TCI elements to create as entities. You can change this later under Configure.",
+        "data": {
+          "receivers": "Receivers",
+          "monitor": "Monitor (read-only sensors)",
+          "control": "Control (switches, numbers, mode select)",
+          "tx_enabled": "Allow Home Assistant to key the transmitter",
+          "tx_elements": "TX controls",
+          "tx_timeout": "TX watchdog",
+          "sensor_interval_ms": "Meter report interval",
+          "update_interval": "Meter update throttle"
+        },
+        "data_description": {
+          "tx_enabled": "Off by default. Dashboard taps and automations can put the radio on the air. You remain the control operator.",
+          "tx_timeout": "Transmissions started from Home Assistant are unkeyed after this many seconds. 0 disables the watchdog.",
+          "sensor_interval_ms": "How often the radio sends S-meter and TX meter readings.",
+          "update_interval": "Minimum time between Home Assistant state writes for fast meters, to keep the recorder database small. 0 writes every reading."
+        }
+      },
+      "reconfigure": {
+        "title": "Change TCI server",
+        "description": "Update the address. The server is probed again so new receivers or modes are picked up.",
+        "data": {
+          "host": "Host",
+          "port": "Port"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not connect to a TCI server at that address. Check that TCI is enabled and the port is reachable.",
+      "unknown": "Unexpected error; see the Home Assistant log.",
+      "no_receivers": "Select at least one receiver.",
+      "no_tx_elements": "Select at least one TX control, or turn TX off."
+    },
+    "abort": {
+      "already_configured": "This TCI server is already configured.",
+      "reconfigure_successful": "TCI server updated."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "TCI elements",
+        "description": "**{device}** (protocol {protocol}), {trx_count} receiver(s). Modes: {modes}.",
+        "data": {
+          "receivers": "Receivers",
+          "monitor": "Monitor (read-only sensors)",
+          "control": "Control (switches, numbers, mode select)",
+          "tx_enabled": "Allow Home Assistant to key the transmitter",
+          "tx_elements": "TX controls",
+          "tx_timeout": "TX watchdog",
+          "sensor_interval_ms": "Meter report interval",
+          "update_interval": "Meter update throttle"
+        },
+        "data_description": {
+          "tx_enabled": "Off by default. Dashboard taps and automations can put the radio on the air. You remain the control operator.",
+          "tx_timeout": "Transmissions started from Home Assistant are unkeyed after this many seconds. 0 disables the watchdog.",
+          "sensor_interval_ms": "How often the radio sends S-meter and TX meter readings.",
+          "update_interval": "Minimum time between Home Assistant state writes for fast meters, to keep the recorder database small. 0 writes every reading."
+        }
+      }
+    },
+    "error": {
+      "no_receivers": "Select at least one receiver.",
+      "no_tx_elements": "Select at least one TX control, or turn TX off."
+    }
+  },
+  "services": {
+    "send_command": {
+      "name": "Send TCI command",
+      "description": "Send raw TCI command(s) to the radio, e.g. 'vfo:0,0,14074000;'. Commands that key the transmitter are refused unless TX control is enabled.",
+      "fields": {
+        "command": {
+          "name": "Command",
+          "description": "One or more TCI commands separated by ';'."
+        },
+        "config_entry_id": {
+          "name": "Radio",
+          "description": "Which TCI radio to send to. Optional when only one is configured."
+        }
+      }
+    }
+  }
+}

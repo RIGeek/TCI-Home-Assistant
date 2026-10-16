@@ -1,0 +1,12 @@
+send_command:
+  fields:
+    command:
+      required: true
+      example: "modulation:0,usb;"
+      selector:
+        text:
+    config_entry_id:
+      required: false
+      selector:
+        config_entry:
+          integration: tci

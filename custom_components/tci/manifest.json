@@ -1,0 +1,13 @@
+{
+  "domain": "tci",
+  "name": "TCI Radio",
+  "codeowners": ["@RIGeek"],
+  "config_flow": true,
+  "documentation": "https://github.com/RIGeek/TCI-Home-Assistant",
+  "integration_type": "device",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/RIGeek/TCI-Home-Assistant/issues",
+  "loggers": ["custom_components.tci"],
+  "requirements": [],
+  "version": "0.1.0"
+}
